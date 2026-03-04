@@ -1,0 +1,60 @@
+{
+    "input": "./onnx_model/deformable_detr_ax.onnx",
+    "output_dir": "./output",
+    "output_name": "detr.axmodel",
+    "target_hardware": "AX650",
+    "model_type": "ONNX",
+    "npuMode": "NPU3",
+    "onnx_opt": {
+        "disable_onnx_optimization": false,
+        "enable_onnxsim": false,
+        "model_check": false,
+        "disable_transformation_check": false
+    },
+    "quant": {
+        "precision_analysis": true,
+        "calibration_method": "MinMax",
+        "precision_analysis_method": "EndToEnd",
+        "precision_analysis_mode": "NPUBackend",
+        "input_configs": [
+            {
+                "tensor_name": "DEFAULT",
+                "calibration_dataset": "./data/images.tar.gz",
+                "calibration_mean": [123.675, 116.28, 103.53],
+                "calibration_std": [58.395, 57.12, 57.375]
+            }
+        ],
+        "layer_configs": [
+            {
+                "start_tensor_names": [
+                    "DEFAULT"
+                ],
+                "end_tensor_names": [
+                    "DEFAULT"
+                ],
+                "data_type": "U16"
+            }
+        ],
+        "conv_bias_data_type": "S32",
+        "transformer_opt_level": 0,
+        "enable_smooth_quant": false
+    },
+    "input_processors": [
+        {
+            "tensor_name": "input",
+            "src_format": "RGB",
+            "src_dtype": "FP32",
+            "src_layout": "NHWC",
+            "tensor_format": "RGB"
+        }
+    ],
+    "output_processors": [
+        {
+            "tensor_name": "DEFAULT",
+            "tensor_layout": "NCHW"
+        }
+    ],
+    "compiler": {
+        "check": 0
+    }
+}
