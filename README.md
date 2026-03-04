@@ -12,7 +12,7 @@ pulsar2 build --config  ./config/config.json
 ```
 ### 3. 板端运行
 ```
-python inference.py --model detr.axmodel --img ./assets/bus.jpg --output out.jpg --thresh 0.6
+python inference.py --model ./output/detr.axmodel --img ./assets/bus.jpg --output out.jpg --thresh 0.6
 ```
 ### 4. 结果展示
 ![result](./output/out.jpg)
